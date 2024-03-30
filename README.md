@@ -7,8 +7,12 @@ The library is designed to follow the type conversion rules of the reference Jso
 
 ## Compile and Install
 
-TODO: provide cmake files
+The library can be installed using cmake.
 
+    mkdir build
+    cd build
+    cmake ..
+    make
 
 ## Use
 
@@ -46,7 +50,7 @@ To evaluate a rule multiple times, it may be beneficial to convert the Json obje
 [Clippy](https://github.com/LLNL/clippy) is a companion library for Python that creates Json objects that can be evaluated by JsonLogicCpp.
 
 ## Authors
-Peter Pirkelbauer (pirkelbauer at llnl dot gov)
+Peter Pirkelbauer (pirkelbauer2 at llnl dot gov)
 
 
 ## License
