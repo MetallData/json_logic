@@ -8,10 +8,10 @@ ifneq ($(BUILD_TYPE),release)
 endif
 
 HEADERS := \
-  include/json_logic_cpp/logic.hpp \
-  include/json_logic_cpp/details/ast-core.hpp \
-  include/json_logic_cpp/details/ast-full.hpp \
-  include/json_logic_cpp/details/cxx-compat.hpp
+  include/jsonlogic/logic.hpp \
+  include/jsonlogic/details/ast-core.hpp \
+  include/jsonlogic/details/ast-full.hpp \
+  include/jsonlogic/details/cxx-compat.hpp
 
 SOURCES := \
   src/logic.cc

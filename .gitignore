@@ -1,0 +1,7 @@
+CMakeFiles/
+build/
+CMakeCache.txt
+Makefile
+*.cmake
+*.so
+testeval.bin
