@@ -61,11 +61,11 @@
 #endif
 
 #ifndef CXX_MAYBE_UNUSED
-  #ifdef __GNUG__
-  #define CXX_MAYBE_UNUSED __attribute__((unused))
-  #else
-  #define CXX_MAYBE_UNUSED
-  #endif /* __GNUG__ */
+#ifdef __GNUG__
+#define CXX_MAYBE_UNUSED __attribute__((unused))
+#else
+#define CXX_MAYBE_UNUSED
+#endif /* __GNUG__ */
 #endif
 
 #ifndef CXX_NO_UNIQUE_ADDRESS
@@ -83,8 +83,3 @@
 #ifndef CXX_UNLIKELY
 #define CXX_UNLIKELY
 #endif
-
-
-
-
-
