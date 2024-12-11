@@ -1611,6 +1611,24 @@ bool compare_sequence(array *lv, array *rv, binary_predicate_t pred) {
   return compare_sequence(deref(lv), deref(rv), std::move(pred));
 }
 
+/// convenience template that only returns \p R
+/// when the types \p U and \p V mismatch.
+/// matching \p U and \p V trigger a SFINAE error to invoke
+/// the regular operator.
+/// \{
+template <class U, class V, class R>
+struct mismatched_types
+{
+  using type = R;
+};
+
+template <class T, class R>
+struct mismatched_types<T,T,R>
+{
+  // using type // triggers SFINAE exclusion
+};
+/// \}
+
 //
 // the calc operator implementations
 
@@ -1619,9 +1637,12 @@ template <class> struct operator_impl {};
 template <> struct operator_impl<equal> : equality_operator {
   using equality_operator::result_type;
 
-  result_type operator()(...) const { return false; } // type mismatch
+  template <class U, class V>
+  auto operator()(const U&, const V&) const -> typename mismatched_types<U, V, result_type>::type {
+    return false;
+  }
 
-  template <class T> result_type operator()(const T &lhs, const T &rhs) const {
+  template <class T> auto operator()(const T &lhs, const T &rhs) const -> result_type {
     return lhs == rhs;
   }
 };
@@ -1629,9 +1650,12 @@ template <> struct operator_impl<equal> : equality_operator {
 template <> struct operator_impl<not_equal> : equality_operator {
   using equality_operator::result_type;
 
-  result_type operator()(...) const { return true; } // type mismatch
+  template <class U, class V>
+  auto operator()(const U&, const V&) const -> typename mismatched_types<U, V, result_type>::type {
+    return true;
+  }
 
-  template <class T> result_type operator()(const T &lhs, const T &rhs) const {
+  template <class T> auto operator()(const T &lhs, const T &rhs) const -> result_type {
     return lhs != rhs;
   }
 };
@@ -1639,9 +1663,12 @@ template <> struct operator_impl<not_equal> : equality_operator {
 template <> struct operator_impl<strict_equal> : strict_equality_operator {
   using strict_equality_operator::result_type;
 
-  result_type operator()(...) const { return false; } // type mismatch
+  template <class U, class V>
+  auto operator()(const U&, const V&) const -> typename mismatched_types<U, V, result_type>::type {
+    return false;
+  }
 
-  template <class T> result_type operator()(const T &lhs, const T &rhs) const {
+  template <class T> auto operator()(const T &lhs, const T &rhs) const -> result_type {
     return lhs == rhs;
   }
 };
@@ -1649,9 +1676,12 @@ template <> struct operator_impl<strict_equal> : strict_equality_operator {
 template <> struct operator_impl<strict_not_equal> : strict_equality_operator {
   using strict_equality_operator::result_type;
 
-  result_type operator()(...) const { return true; } // type mismatch
+  template <class U, class V>
+  auto operator()(const U&, const V&) const -> typename mismatched_types<U, V, result_type>::type {
+    return true;
+  }
 
-  template <class T> result_type operator()(const T &lhs, const T &rhs) const {
+  template <class T> auto operator()(const T &lhs, const T &rhs) const -> result_type {
     return lhs != rhs;
   }
 };
